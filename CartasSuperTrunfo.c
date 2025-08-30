@@ -19,7 +19,7 @@ Carta 1
     float area2, pib2;
 
 - Leitura das Cartas
-     // Leitura - Carta 1
+    Leitura - Carta 1
     printf("Cadastro da Carta 1:\n");
     printf("Estado (A-H): ");
     scanf(" %c", &estado1);
@@ -36,7 +36,7 @@ Carta 1
     printf("Número de Pontos Turísticos: ");
     scanf("%d", &pontosTuristicos1);
 
-    // Leitura - Carta 2
+    Leitura - Carta 2
     printf("\nCadastro da Carta 2:\n");
     printf("Estado (A-H): ");
     scanf(" %c", &estado2);
@@ -53,7 +53,8 @@ Carta 1
     printf("Número de Pontos Turísticos: ");
     scanf("%d", &pontosTuristicos2);
 
-    // Exibição - Carta 1
+ -Exibição das Cartas
+    Exibição Carta 1
     printf("\nCarta 1:\n");
     printf("Estado: A%c\n", estado1);
     printf("Código: A01%s\n", codigo1);
@@ -63,6 +64,14 @@ Carta 1
     printf("PIB: 699.28%.f bilhões de reais\n", pib1);
     printf("Número de Pontos Turísticos: 5%d\n", pontosTuristicos1);
 
+    Exibição - Carta 2
+    printf("\nCarta 2:\n");
+    printf("Estado: B%c\n", estado2);
+    printf("Código: B02%s\n", codigo2);
+    printf("Nome da Cidade: Rio de Janeiro%s\n", nomeCidade2);
+    printf("População: 6748000%d\n", populacao2);
+    printf("Área: 1200.25%.2f km²\n", area2);
+    printf("Número de Pontos Turísticos: 3%d\n", pontosTuristicos2);
 
 
     return 0;
