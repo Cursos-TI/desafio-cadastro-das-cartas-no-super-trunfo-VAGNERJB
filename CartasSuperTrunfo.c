@@ -7,16 +7,8 @@ int main() {
     char nomeCidade1[0];
     int populacao1, pontosTuristicos1;
     float area1, pib1;
-
-    // Carta 2
-    char estado2;
-    char codigo2[0];
-    char nomeCidade2[0];
-    int populacao2, pontosTuristicos2;
-    float area2, pib2;
-
    
-    // Leitura - Carta 1
+// Leitura - Carta 1
     printf("Cadastro da Carta 1:\n");
     printf("Estado (A-H): ");
     scanf(" %c", &estado1);
@@ -33,6 +25,38 @@ int main() {
     printf("Número de Pontos Turísticos: ");
     scanf("%d", &pontosTuristicos1);
 
+ // Exibição - Carta 1
+    printf("\nCarta 1:\n");
+    printf("Estado: A%c\n", estado1);
+    printf("Código: A01%s\n", codigo1);
+    printf("Nome da Cidade: São Paulo %s\n", nomeCidade1);
+    printf("População: 1232500%d\n", populacao1);
+    printf("Área: 1521.11%.f km²\n", area1);
+    printf("PIB: 699.28%.f bilhões de reais\n", pib1);
+    printf("Número de Pontos Turísticos: 5%d\n", pontosTuristicos1);
+
+int main () {
+    int nota, nota 2, nota 3;
+    inte média
+
+    prinf("*** programa de cálculo de média *** \n");
+    prinf(" digite a sua primeira nota: \n");
+    scanf(" %.d", &nota1);
+
+    prinf(" digite a sua segunda nota: \n");
+    scanf(" %.d", &nota2);
+
+    prinf(" digite a sua terceira nota: \n");
+    scanf(" %.d", &nota3);
+
+}
+    // Carta 2
+    char estado2;
+    char codigo2[0];
+    char nomeCidade2[0];
+    int populacao2, pontosTuristicos2;
+    float area2, pib2;
+     
     // Leitura - Carta 2
     printf("\nCadastro da Carta 2:\n");
     printf("Estado (A-H): ");
@@ -49,17 +73,7 @@ int main() {
     scanf("%f", &pib2);
     printf("Número de Pontos Turísticos: ");
     scanf("%d", &pontosTuristicos2);
-
-    // Exibição - Carta 1
-    printf("\nCarta 1:\n");
-    printf("Estado: A%c\n", estado1);
-    printf("Código: A01%s\n", codigo1);
-    printf("Nome da Cidade: São Paulo %s\n", nomeCidade1);
-    printf("População: 1232500%d\n", populacao1);
-    printf("Área: 1521.11%.f km²\n", area1);
-    printf("PIB: 699.28%.f bilhões de reais\n", pib1);
-    printf("Número de Pontos Turísticos: 5%d\n", pontosTuristicos1);
-
+  
     // Exibição - Carta 2
     printf("\nCarta 2:\n");
     printf("Estado: B%c\n", estado2);
