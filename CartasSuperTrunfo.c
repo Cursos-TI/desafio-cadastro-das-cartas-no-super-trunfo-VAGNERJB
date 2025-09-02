@@ -35,20 +35,28 @@ int main() {
     printf("PIB: 699.28%.f bilhões de reais\n", pib1);
     printf("Número de Pontos Turísticos: 5%d\n", pontosTuristicos1);
 
-int main () {
+#include <stdio.h>
+
+int main(){
     int nota, nota 2, nota 3;
     inte média
 
     prinf("*** programa de cálculo de média *** \n");
     prinf(" digite a sua primeira nota: \n");
-    scanf(" %.d", &nota1);
+    scanf(" %d", &nota1);
 
     prinf(" digite a sua segunda nota: \n");
-    scanf(" %.d", &nota2);
+    scanf(" %d", &nota2);
 
     prinf(" digite a sua terceira nota: \n");
-    scanf(" %.d", &nota3);
+    scanf("%d", &nota3);
 
+    média = ( nota1, nota2, nota3)/3;
+    printf (" A média é = %d" , média);
+
+
+    return 0;
+}
 }
     // Carta 2
     char estado2;
