@@ -1,64 +1,103 @@
-#include <stdio.h> // Para funções de entrada e saída como printf e scanf
-#include <math.h>  // Para fabs, embora a condicional com ele será removida
+#include <stdio.h>   // Para funções de entrada e saída como printf e scanf
+#include <string.h>  // Para funcoes de string como strcmp (ainda nao usado, mas util para nomes)
+#include <math.h>    // Para fabs (não será usado para condicionais, mas pode ser útil para outros cálculos)
+
+// --- DEFINICAO DA STRUCT E FUNCOES AUXILIARES ---
+
+// Definição da struct para representar uma Carta
+typedef struct {
+    char estado;
+    char codigo[10];
+    char nomeCidade[50];
+    int populacao;
+    float area;
+    float pib;
+    int pontosTuristicos;
+    float densidadePopulacional; // Novo campo
+    float pibPerCapita;          // Novo campo
+    float superPoder;            // Novo campo
+} Carta; // Agora você pode usar 'Carta' como um tipo
 
 // Função auxiliar para limpar o buffer do teclado.
 // É uma convenção comum em C para lidar com o '\n' deixado pelo scanf.
-// Internamente, ela usa um loop, mas é uma utilidade e não parte da lógica de negócio principal.
 void limparBuffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-int main() {
-    // --- 1. Cadastro e Exibição da PRIMEIRA Carta ---
-    printf("\n--- INICIANDO: CADASTRO E EXIBICAO DA PRIMEIRA CARTA ---\n");
-    char estado1;
-    char codigo1[10];        // Espaço para 9 caracteres + o terminador nulo '\0'
-    char nomeCidade1[50];    // Espaço para 49 caracteres + o terminador nulo '\0'
-    int populacao1;
-    float area1;
-    float pib1;
-    int pontosTuristicos1;
+// Função para ler os dados de uma Carta
+void lerCarta(Carta *carta, int numeroCarta) {
+    printf("\n--- INICIANDO: CADASTRO DA CARTA %d ---\n", numeroCarta);
 
-    printf("Estado da Carta 1 (A-H): ");
-    scanf(" %c", &estado1);
-    limparBuffer(); // Limpa buffer apos ler char
-
-    printf("Codigo da Carta 1 (ex: A01): ");
-    scanf("%s", codigo1);
-    limparBuffer(); // Limpa buffer apos ler string
-
-    printf("Nome da Cidade da Carta 1: ");
-    // %[^\n]%*c le a linha inteira, incluindo espacos, e ja consome o '\n' final
-    scanf(" %[^\n]%*c", nomeCidade1); 
-
-    printf("Populacao da Carta 1: ");
-    scanf("%d", &populacao1);
+    printf("Estado da Carta %d (A-H): ", numeroCarta);
+    scanf(" %c", &carta->estado);
     limparBuffer();
 
-    printf("Area da Carta 1 (em km2): ");
-    scanf("%f", &area1);
+    printf("Codigo da Carta %d (ex: A01): ", numeroCarta);
+    scanf("%s", carta->codigo);
     limparBuffer();
 
-    printf("PIB da Carta 1 (em bilhoes): ");
-    scanf("%f", &pib1);
+    printf("Nome da Cidade da Carta %d: ");
+    scanf(" %[^\n]%*c", carta->nomeCidade);
+
+    printf("Populacao da Carta %d: ");
+    scanf("%d", &carta->populacao);
     limparBuffer();
 
-    printf("Numero de Pontos Turisticos da Carta 1: ");
-    scanf("%d", &pontosTuristicos1);
+    printf("Area da Carta %d (em km2): ");
+    scanf("%f", &carta->area);
     limparBuffer();
 
-    printf("\n--- Dados da PRIMEIRA Carta Cadastrados ---\n");
-    printf("Estado: %c\n", estado1);
-    printf("Codigo: %s\n", codigo1);
-    printf("Nome da Cidade: %s\n", nomeCidade1);
-    printf("Populacao: %d\n", populacao1);
-    printf("Area: %.2f km2\n", area1);
-    printf("PIB: %.2f bilhoes de reais\n", pib1);
-    printf("Numero de Pontos Turisticos: %d\n", pontosTuristicos1);
+    printf("PIB da Carta %d (em bilhoes): ");
+    scanf("%f", &carta->pib);
+    limparBuffer();
+
+    printf("Numero de Pontos Turisticos da Carta %d: ");
+    scanf("%d", &carta->pontosTuristicos);
+    limparBuffer();
+}
+
+// Função para calcular os atributos derivados (densidade, PIB per capita, super poder)
+void calcularAtributosDerivados(Carta *carta) {
+    // Cálculo da Densidade Populacional
+    // Usa operador ternario para evitar divisao por zero, resultando em 0.0 se area for 0.
+    carta->densidadePopulacional = (carta->area != 0) ? (float)carta->populacao / carta->area : 0.0;
+
+    // Cálculo do PIB per capita
+    // Usa operador ternario para evitar divisao por zero, resultando em 0.0 se populacao for 0.
+    carta->pibPerCapita = (carta->populacao != 0) ? carta->pib / (float)carta->populacao : 0.0;
+
+    // TODO: DEFINIR A FORMULA DO SUPER PODER
+    // Por favor, substitua esta linha pela formula real que voce deseja usar.
+    // Exemplo: carta->superPoder = (carta->populacao / 100000.0) + (carta->pib / 1.0) + (carta->pontosTuristicos * 5.0);
+    carta->superPoder = 0.0; // Placeholder: POR FAVOR, DEFINA A FORMULA AQUI
+}
+
+// Função para exibir os dados de uma Carta, incluindo os novos atributos
+void exibirCarta(Carta carta, int numeroCarta) {
+    printf("\n--- Dados da CARTA %d Cadastrados ---\n", numeroCarta);
+    printf("Estado: %c\n", carta.estado);
+    printf("Codigo: %s\n", carta.codigo);
+    printf("Nome da Cidade: %s\n", carta.nomeCidade);
+    printf("Populacao: %d\n", carta.populacao);
+    printf("Area: %.2f km2\n", carta.area);
+    printf("PIB: %.2f bilhoes de reais\n", carta.pib);
+    printf("Numero de Pontos Turisticos: %d\n", carta.pontosTuristicos);
+    printf("Densidade Populacional: %.2f hab/km2\n", carta.densidadePopulacional);
+    printf("PIB per Capita: %.2f bilhoes/hab\n", carta.pibPerCapita);
+    printf("Super Poder: %.2f\n", carta.superPoder);
     printf("\n----------------------------------------------------------\n");
+}
 
-    // --- 2. Cálculo da Média de 3 Notas ---
+// --- FUNCAO PRINCIPAL ---
+int main() {
+    // --- 1. Cadastro, Cálculo e Exibição da PRIMEIRA Carta ---
+    Carta carta1;
+    lerCarta(&carta1, 1);
+    calcularAtributosDerivados(&carta1);
+    exibirCarta(carta1, 1);
+
+    // --- 2. Cálculo da Média de 3 Notas (permanece igual) ---
     printf("\n--- INICIANDO: CALCULO DA MEDIA DE 3 NOTAS ---\n");
     int nota1, nota2, nota3;
     float media;
@@ -79,76 +118,57 @@ int main() {
     printf("A media e = %.2f\n", media);
     printf("\n----------------------------------------------------------\n");
 
-    // --- 3. Cadastro e Exibição da SEGUNDA Carta ---
-    printf("\n--- INICIANDO: CADASTRO E EXIBICAO DA SEGUNDA CARTA ---\n");
-    char estado2;
-    char codigo2[10];        
-    char nomeCidade2[50];    
-    int populacao2;
-    float area2;
-    float pib2;
-    int pontosTuristicos2;
-     
-    printf("Estado da Carta 2 (A-H): ");
-    scanf(" %c", &estado2);
-    limparBuffer();
+    // --- 3. Cadastro, Cálculo e Exibição da SEGUNDA Carta ---
+    Carta carta2;
+    lerCarta(&carta2, 2);
+    calcularAtributosDerivados(&carta2);
+    exibirCarta(carta2, 2);
 
-    printf("Codigo da Carta 2 (ex: B02): ");
-    scanf("%s", codigo2);
-    limparBuffer();
+    // --- 4. Comparações de Cartas ---
+    printf("\n--- INICIANDO: COMPARACAO ENTRE CARTAS (Maior Valor Ganha) ---\n");
+    printf("ATENCAO: Para Densidade Populacional, por favor, confirme a regra.\n");
+    printf("\nComparando Carta 1 (%s) vs Carta 2 (%s):\n", carta1.nomeCidade, carta2.nomeCidade);
 
-    printf("Nome da Cidade da Carta 2: ");
-    scanf(" %[^\n]%*c", nomeCidade2);
+    // Comparação para População: Maior População Ganha
+    printf("- Populacao: %s tem mais (%d vs %d)\n",
+           (carta1.populacao > carta2.populacao ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.populacao, carta2.populacao);
+
+    // Comparação para Area: Maior Area Ganha
+    printf("- Area: %s tem mais (%.2f km2 vs %.2f km2)\n",
+           (carta1.area > carta2.area ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.area, carta2.area);
     
-    printf("Populacao da Carta 2: ");
-    scanf("%d", &populacao2);
-    limparBuffer();
-    
-    printf("Area da Carta 2 (em km2): ");
-    scanf("%f", &area2);
-    limparBuffer();
-    
-    printf("PIB da Carta 2 (em bilhoes): ");
-    scanf("%f", &pib2);
-    limparBuffer();
-    
-    printf("Numero de Pontos Turisticos da Carta 2: ");
-    scanf("%d", &pontosTuristicos2);
-    limparBuffer();
-  
-    printf("\n--- Dados da SEGUNDA Carta Cadastrados ---\n");
-    printf("Estado: %c\n", estado2);
-    printf("Codigo: %s\n", codigo2);
-    printf("Nome da Cidade: %s\n", nomeCidade2);
-    printf("Populacao: %d\n", populacao2);
-    printf("Area: %.2f km2\n", area2);
-    printf("PIB: %.2f bilhoes de reais\n", pib2);
-    printf("Numero de Pontos Turisticos: %d\n", pontosTuristicos2);
+    // Comparação para PIB: Maior PIB Ganha
+    printf("- PIB: %s tem mais (%.2f bi vs %.2f bi)\n",
+           (carta1.pib > carta2.pib ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.pib, carta2.pib);
+
+    // Comparação para Pontos Turisticos: Mais Pontos Turisticos Ganha
+    printf("- Pontos Turisticos: %s tem mais (%d vs %d)\n",
+           (carta1.pontosTuristicos > carta2.pontosTuristicos ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.pontosTuristicos, carta2.pontosTuristicos);
+
+    // Comparação para Densidade Populacional:
+    // TODO: CONFIRME A REGRA AQUI. ASSUMINDO "MAIOR GANHA" POR ENQUANTO.
+    printf("- Densidade Populacional: %s tem mais (%.2f hab/km2 vs %.2f hab/km2)\n",
+           (carta1.densidadePopulacional > carta2.densidadePopulacional ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.densidadePopulacional, carta2.densidadePopulacional);
+
+    // Comparação para PIB per Capita: Maior PIB per Capita Ganha
+    printf("- PIB per Capita: %s tem mais (%.2f bi/hab vs %.2f bi/hab)\n",
+           (carta1.pibPerCapita > carta2.pibPerCapita ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.pibPerCapita, carta2.pibPerCapita);
+
+    // Comparação para Super Poder: Maior Super Poder Ganha
+    // Este valor dependera da formula que voce definir para 'superPoder'
+    printf("- Super Poder: %s tem mais (%.2f vs %.2f)\n",
+           (carta1.superPoder > carta2.superPoder ? carta1.nomeCidade : carta2.nomeCidade),
+           carta1.superPoder, carta2.superPoder);
+
     printf("\n----------------------------------------------------------\n");
-
-    // --- 4. Cálculo de Densidade Populacional (Sem comparações ou tratamento de erro) ---
-    printf("\n--- INICIANDO: CALCULO DE DENSIDADE POPULACIONAL ---\n");
-    printf("ATENCAO: Este programa nao pode usar condicionais. Se voce digitar 0 para a area, o programa pode exibir 'inf' ou 'NaN' ou ate mesmo travar devido a divisao por zero.\n");
-    float populacao_a, area_a, populacao_b, area_b;
-    float razao_a, razao_b;
-
-    printf("Digite a populacao e area da Regiao A (separadas por espaco): ");
-    scanf("%f %f", &populacao_a, &area_a);
-    limparBuffer();
-
-    printf("Digite a populacao e area da Regiao B (separadas por espaco): ");
-    scanf("%f %f", &populacao_b, &area_b);
-    limparBuffer();
-
-    // Nao ha verificacao de area_a == 0 ou area_b == 0
-    razao_a = populacao_a / area_a;
-    razao_b = populacao_b / area_b;
-
-    printf("\nRegiao A: Populacao/Area = %.2f\n", razao_a);
-    printf("Regiao B: Populacao/Area = %.2f\n", razao_b);
-
-    // Nao ha comparacoes do tipo "maior", "menor" ou "aproximadamente iguais"
     printf("\n--- FIM DO PROGRAMA ---\n");
 
     return 0; // Indica que o programa terminou com sucesso
 }
+
