@@ -109,7 +109,7 @@ int main() {
     calcularAtributosDerivados(&carta2);
     exibirCarta(carta2, 2);
 
-    // --- 3. Comparações de Cartas (Nível Mestre) ---
+   // Comparações das Cartas
     printf("\n--- INICIANDO: RESULTADOS DA COMPARACAO ---\n");
     printf("Regra: 1 se Carta 1 vence (melhor valor), 0 se Carta 2 vence ou empata.\n");
     printf("(Lembre-se: 'melhor valor' significa MAIOR para a maioria, mas MENOR para Densidade Populacional)\n\n");
